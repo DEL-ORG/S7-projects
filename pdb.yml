@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: s7rosine-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: s7rosine
+  template:
+    metadata:
+      labels:
+        app: s7rosine
+    spec:
+      containers:
+      - name: s7rosine-container
+        image: nginx
+        ports:
+        - containerPort: 80
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: s7rosine-pdb
+spec:
+  minAvailable: 3
+  selector:
+    matchLabels:
+      app: s7rosine

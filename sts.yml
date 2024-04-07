@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: statefulset-app
+spec:
+  serviceName: "laura"
+  replicas: 3
+  selector:
+    matchLabels:
+      app: sts-app
+  template:
+    metadata:
+      labels:
+        app: sts-app
+    spec:
+      containers:
+      - name: sts-container
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+          name: http
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      resources:
+        requests:
+          storage: 1Gi

@@ -1,0 +1,60 @@
+kind: StorageClass
+metadata:
+  name: a1bahatie
+provisioner: dobs.csi.digitalocean.com
+reclaimPolicy: Delete
+volumeBindingMode: Immediate
+
+---
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: a1bahatie
+spec:
+  storageClassName: a1bahatie
+  claimRef:
+    name: a1bahatie
+    namespace: a1bahatie
+
+---
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: a1bahatie
+spec:
+  replicas: 1
+  serviceName: "postgresql"
+  selector:
+    matchLabels:
+      app: postgresql
+  template:
+    metadata:
+      labels:
+        app: postgresql
+    spec:
+      containers:
+      - name: postgresql
+        image: postgres:latest
+        ports:
+        - containerPort: 5432
+        env:
+        - name: POSTGRES_DB
+          value: postgres
+        - name: POSTGRES_USER
+          value: postgres
+        - name: POSTGRES_PASSWORD
+          value: postgres
+        volumeMounts:
+        - name: postgresql-data
+          mountPath: /var/lib/postgresql/data
+  volumeClaimTemplates:
+  - metadata:
+      name: postgresql-data
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      resources:
+        requests:
+          storage: 10Gi
+

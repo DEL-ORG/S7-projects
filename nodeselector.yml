@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: red
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: red
+  template:
+    metadata:
+      labels:
+        app: red
+    spec:
+      containers:
+      - name: red
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+      nodeSelector:
+        data: red
+
+--- 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blue
+spec:
+  replicas: 30
+  selector:
+    matchLabels:
+      app: blue
+  template:
+    metadata:
+      labels:
+        app: blue
+    spec:
+      containers:
+      - name: blue
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+      nodeSelector:
+        data: blue
+
+
+
+        # kubectl label nodes server2-cluster-jf3xf data=blue
+        # kubectl label nodes server2-cluster-jf3xm   data=red
+        # kubectl label nodes server2-cluster-jf3xq  data=yellow
