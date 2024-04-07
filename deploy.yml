@@ -1,33 +1,67 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: webapp-deployment
+  name: rosine-deployment
   labels:
-    app: webapp
+    app: rosine
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: webapp
+      app: rosine
   template:
     metadata:
       labels:
-        app: webapp
+        app: rosine
     spec:
       containers:
-      - name: webapp
-        image: nginx3:latest
+      - name: rosine
+        image: nginx
         ports:
         - containerPort: 80
-        readinessProbe:
-          httpGet:
-            path: /
-            port: 801
-          initialDelaySeconds: 10
-          periodSeconds: 5
-        livenessProbe:
-          httpGet:
-            path: /
-            port: 801
-          initialDelaySeconds: 15
-          periodSeconds: 10
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bahatie-bahatie
+  labels:
+    app: bahatie
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: bahatie
+  template:
+    metadata:
+      labels:
+        app: bahatie
+    spec:
+      containers:
+      - name: bahatie
+        image: nginx
+        ports:
+        - containerPort: 80
+
+--- 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cyprien-cyprien
+  labels:
+    app: cyprien
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: cyprien
+  template:
+    metadata:
+      labels:
+        app: cyprien
+    spec:
+      containers:
+      - name: cyprien
+        image: nginx
+        ports:
+        - containerPort: 80
