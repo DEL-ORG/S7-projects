@@ -26,3 +26,7 @@ spec:
     - podSelector:
         matchLabels:
           app: bahatie
+  - from:
+    - podSelector:
+        matchLabels:
+          app: kyvero
