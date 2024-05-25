@@ -51,35 +51,9 @@ pipeline {
                 }
             }
         }
-        stage('Push frontend') {
-            steps {
-                script {
-                    sh '''
-                    sleep 5
-                    '''
-                }
-            }
-        }
 
-        stage('Push api') {
-            steps {
-                script {
-                    sh '''
-                    sleep 5
-                    '''
-                }
-            }
-        }
-        stage('Push backend') {
-            steps {
-                script {
 
-                    sh '''
-                    sleep 5
-                    '''
-                }
-            }
-        }
+
     
     }
 }
