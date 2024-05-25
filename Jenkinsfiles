@@ -1,6 +1,6 @@
-pipeline {new pipeline 01
+pipeline {
     agent any
-
+}
 
     stages {
         stage('Test') {
