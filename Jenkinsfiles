@@ -7,7 +7,7 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    sleep999999 5
+                    sleep 5
                     '''
                 }
             }
