@@ -44,7 +44,7 @@ pipeline {
 
         stage('Build api') {
             steps {
-                script {
+                scripts {
                     sh '''
                     sleep 5
                     '''
