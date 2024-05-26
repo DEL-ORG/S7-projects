@@ -9,7 +9,7 @@ pipeline {
                     properties([
                         parameters([
                           choice(
-                            name: 'Env',
+                            name: 'ENV',
                             choices: ['PREPROP', 'PROD'],
                             description: 'Chose and env'
                           ),
