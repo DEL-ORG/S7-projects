@@ -12,7 +12,7 @@ kind: PersistentVolume
 metadata:
   name: a1bahatie
 spec:
-  storageClassName: a1bahatie
+  storageClassName: a1bahati
   claimRef:
     name: a1bahatie
     namespace: a1bahatie
