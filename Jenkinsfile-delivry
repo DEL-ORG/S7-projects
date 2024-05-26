@@ -1,6 +1,7 @@
 pipeline {
     agent any
 
+
     stages {
         stage('Setup parameters') {
             steps {
@@ -195,22 +196,22 @@ def notifyUpgrade(String buildResult, String whereAt) {
             case 'WARNING':
                 slackSend(channel: channel,
                         color: "#439FE0",
-                        message: "BANGA-app: Upgrade starting in ${env.WARNTIME} minutes @ ${env.BUILD_URL}  Application BANGA_APP")
+                        message: "BANGA-app: Upgrade starting in ${env.WARNTIME} minutes @ ${env.BUILD_URL} ${ENV} : Application BANGA_APP")
                 break
             case 'STARTING':
                 slackSend(channel: channel,
                         color: "good",
-                        message: "BANGA-app: Starting upgrade @ ${env.BUILD_URL} Application BANGA_APP")
+                        message: "BANGA-app: Starting upgrade @ ${env.BUILD_URL} ${ENV} : Application BANGA_APP")
                 break
             default:
                 slackSend(channel: channel,
                         color: "good",
-                        message: "BANGA-app: Upgrade completed successfully @ ${env.BUILD_URL}  Application BANGA_APP")
+                        message: "BANGA-app: Upgrade completed successfully @ ${env.BUILD_URL} ${ENV} :  Application BANGA_APP")
                 break
         }
     } else {
         slackSend(channel: channel,
                 color: "danger",
-                message: "BANGA-app: Upgrade was not successful. Please investigate it immediately.  @ ${env.BUILD_URL}  Application BANGA_APP")
+                message: "BANGA-app: Upgrade was not successful. Please investigate it immediately.  @ ${env.BUILD_URL} ${ENV} :  Application BANGA_APP")
     }
 }
