@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  petclinic-app
+  labels:
+    app: petclinic-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: petclinic-app
+  template:
+    metadata:
+      labels:
+        app: petclinic-app
+    spec:
+      containers:
+      - name: petclinic
+        image: thimone/s7thimone:petclinic
+       # imagePullPolicy: never
+        ports:
+        - containerPort: 8000
+        - containerPort: 8080
+        env:
+        - name: SERVER_PORT
+          value: "8080"
+        - name: MYSQL_URL
+          value: "jdbc:mysql://mysqlserver/petclinic"
+       # volumeMounts:
+       # - name: data
+        #  mountPath: /app
+      #volumes:
+      #- name: data
+
+--------
+apiVersion: v1
+kind: Service
+metadata:
+  name: petclinic
+spec:
+  selector:
+    app: petclinic-app
+  ports:
+  - protocol: TCP
+    name: portname
+    port: 8080
+    targetPort: 8080
+  - protocol: TCP
+    name: portname2
+    port: 8000
+    targetPort: 8000
+  type: NodePort
+  
