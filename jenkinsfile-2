@@ -1,0 +1,83 @@
+pipeline {
+    agent any
+
+
+    stages {
+        stage('Test') {
+            steps {
+                script {
+                    sh '''
+                    sleep 5
+                    '''
+                }
+            }
+        }
+
+        stage('Validate') {
+            steps {
+                script {
+                    sh '''
+                    sleep 5
+                    '''
+                }
+            }
+        }
+
+        stage('Build frontend') {
+            steps {
+                script {
+                    sh '''
+                    sleep 5
+                    '''
+                }
+            }
+        }
+        stage('Build backend') {
+            steps {
+                script {
+                    sh '''
+                    sleep 5
+                    '''
+                }
+            }
+        }
+
+        stage('Build api') {
+            steps {
+                script {
+                    sh '''
+                    sleep 5
+                    '''
+                }
+            }
+        }
+
+
+
+    
+    }
+
+
+   post {
+   
+   success {
+      slackSend (channel: '#development-alerts', color: 'good', message: "SUCCESSFUL: Application BANGA  Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+    }
+
+ 
+    unstable {
+      slackSend (channel: '#development-alerts', color: 'warning', message: "UNSTABLE: Application BANGA  Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+    }
+
+    failure {
+      slackSend (channel: '#development-alerts', color: '#FF0000', message: "FAILURE: Application BANGA Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+    }
+   
+    cleanup {
+      deleteDir()
+    }
+}
+
+
+
+}
