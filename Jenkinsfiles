@@ -8,6 +8,7 @@ pipeline {
                 script {
                     sh '''
                     sleep 5
+                    cd jen
                     '''
                 }
             }
