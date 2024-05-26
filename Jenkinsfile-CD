@@ -118,7 +118,15 @@ pipeline {
                 }
             }
         }
-
+        stage('deploy BANGA') {
+            steps {
+                script {
+                    sh '''
+                    sleep 5
+                    '''
+                }
+            }
+        }
         stage('wait for argocd') {
             steps {
                 script {
