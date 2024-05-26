@@ -42,13 +42,7 @@ pipeline {
             }
         }
 
-        stage('Build api') {
-            steps {
-                script {
-                    sh '''
-                    sleep 5
-                    '''
-                }
+       
             }
         }
 
