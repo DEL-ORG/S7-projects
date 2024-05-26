@@ -61,7 +61,7 @@ pipeline {
                 }
             }
         }
-        stage('Build client') {
+        stage('push client') {
             steps {
                 script {
                     sh '''
@@ -71,7 +71,7 @@ pipeline {
             }
         }
     
-        stage('Build backend') {
+        stage('push backend') {
             steps {
                 script {
                     sh '''
