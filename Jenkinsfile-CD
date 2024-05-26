@@ -1,0 +1,117 @@
+pipeline {
+    agent any
+
+
+    stages {
+        stage('Test') {
+            steps {
+                script {
+                    sh '''
+                    sleep 5
+                    '''
+                }
+            }
+        }
+
+        stage('Validate') {
+            steps {
+                script {
+                    sh '''
+                    sleep 5
+                    '''
+                }
+            }
+        }
+
+        stage('Build frontend') {
+            steps {
+                script {
+                    sh '''
+                    sleep 5
+                    '''
+                }
+            }
+        }
+        stage('Build backend') {
+            steps {
+                script {
+                    sh '''
+                    sleep 5
+                    '''
+                }
+            }
+        }
+
+        stage('Build api') {
+            steps {
+                script {
+                    sh '''
+                    sleep 5
+                    '''
+                }
+            }
+        }
+
+        stage('push api') {
+            steps {
+                script {
+                    sh '''
+                    sleep 5
+                    '''
+                }
+            }
+        }
+        stage('Build client') {
+            steps {
+                script {
+                    sh '''
+                    sleep 5
+                    '''
+                }
+            }
+        }
+    
+        stage('Build backend') {
+            steps {
+                script {
+                    sh '''
+                    sleep 5
+                    '''
+                }
+            }
+        }
+
+
+        stage('update helm chart') {
+            steps {
+                script {
+                    sh '''
+                    sleep 5
+                    '''
+                }
+            }
+        }
+
+        stage('wait for argocd') {
+            steps {
+                script {
+                    sh '''
+                    sleep 5
+                    '''
+                }
+            }
+        } 
+
+        stage('healthcheck') {
+            steps {
+                script {
+                    sh '''
+                    sleep 5
+                    '''
+                }
+            }
+        }    
+
+
+    }
+}
