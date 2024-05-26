@@ -1,0 +1,217 @@
+pipeline {
+    agent any
+
+
+    stages {
+        stage('Setup parameters') {
+            steps {
+                script {
+                    properties([
+                        parameters([
+                          choice(
+                            name: 'Env',
+                            choices: ['PREPROP', 'PROD'],
+                            description: 'Chose and env'
+                          ),
+                          string(name: 'FRONTEND_TAG',
+                            defaultValue: '',
+                            description: '''Enter the frondend tag number here..example: v1.0.0'''),
+
+                          string(name: 'BACKEND_TAG',
+                            defaultValue: '',
+                            description: '''Enter the backend tag number here..example: v1.0.0'''),
+
+                          string(name: 'API_TAG',
+                            defaultValue: '',
+                            description: '''Enter the api tag number here..example: v1.0.0'''),
+
+
+                          string(name: 'WARNTIME',
+                            defaultValue: '2',
+                            description: '''Warning time (in minutes) before starting upgrade'''),
+
+
+                          string(
+                            defaultValue: 'main',
+                            name: 'Please_leave_this_section_as_it_is',
+                            trim: true
+                            ),
+                        ])
+                    ])
+                }
+            }
+        }
+
+
+
+
+        stage('warning') {
+            steps {
+                   script {
+                       notifyUpgrade(currentBuild.currentResult, "WARNING")
+                       sleep(time:env.WARNTIME, unit:"MINUTES")
+                }
+            }
+        }
+
+        stage('Test') {
+            steps {
+                script {
+                    sh '''
+                    sleep 5
+                    '''
+                }
+            }
+        }
+
+        stage('Validate') {
+            steps {
+                script {
+                    sh '''
+                    sleep 5
+                    '''
+                }
+            }
+        }
+
+        stage('Build frontend') {
+            steps {
+                script {
+                    sh '''
+                    sleep 5
+                    '''
+                }
+            }
+        }
+        stage('Build backend') {
+            steps {
+                script {
+                    sh '''
+                    sleep 5
+                    '''
+                }
+            }
+        }
+
+        stage('Build api') {
+            steps {
+                script {
+                    sh '''
+                    sleep 5
+                    '''
+                }
+            }
+        }
+
+        stage('push api') {
+            steps {
+                script {
+                    sh '''
+                    sleep 5
+                    '''
+                }
+            }
+        }
+        stage('push client') {
+            steps {
+                script {
+                    sh '''
+                    sleep 5
+                    '''
+                }
+            }
+        }
+    
+        stage('push backend') {
+            steps {
+                script {
+                    sh '''
+                    sleep 5
+                    '''
+                }
+            }
+        }
+
+
+        stage('update helm chart') {
+            steps {
+                script {
+                    sh '''
+                    sleep 5
+                    '''
+                }
+            }
+        }
+        stage('deploy BANGA') {
+            steps {
+                script {
+                    sh '''
+                    sleep 5
+                    '''
+                }
+            }
+        }
+        stage('wait for argocd') {
+            steps {
+                script {
+                    sh '''
+                    sleep 5
+                    '''
+                }
+            }
+        } 
+
+        stage('healthcheck') {
+            steps {
+                script {
+                    sh '''
+                    sleep 5
+                    '''
+                }
+            }
+        }    
+
+
+    }
+
+
+
+    post {
+        always {
+            script {
+                notifyUpgrade(currentBuild.currentResult, "POST")
+            }
+        }    
+    }
+}
+
+def notifyUpgrade(String buildResult, String whereAt) {
+    if (Please_leave_this_section_as_it_is == 'origin/main') {
+        channel = 'development-alerts'
+    } else {
+        channel = 'development-alerts'
+    }
+    if (buildResult == "SUCCESS") {
+        switch(whereAt) {
+            case 'WARNING':
+                slackSend(channel: channel,
+                        color: "#439FE0",
+                        message: "BANGA-app: Upgrade starting in ${env.WARNTIME} minutes @ ${env.BUILD_URL}  Application BANGA_APP")
+                break
+            case 'STARTING':
+                slackSend(channel: channel,
+                        color: "good",
+                        message: "BANGA-app: Starting upgrade @ ${env.BUILD_URL} Application BANGA_APP")
+                break
+            default:
+                slackSend(channel: channel,
+                        color: "good",
+                        message: "BANGA-app: Upgrade completed successfully @ ${env.BUILD_URL}  Application BANGA_APP")
+                break
+        }
+    } else {
+        slackSend(channel: channel,
+                color: "danger",
+                message: "BANGA-app: Upgrade was not successful. Please investigate it immediately.  @ ${env.BUILD_URL}  Application BANGA_APP")
+    }
+}
