@@ -1,4 +1,9 @@
 # This is a test 
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: auth-banga-service-account
+---
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
@@ -39,7 +44,6 @@ spec:
       - name: data
         persistentVolumeClaim:
           claimName: auth-banga-storage-claim
-
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -52,8 +56,3 @@ spec:
   resources:
     requests:
       storage: 1Gi  # Adjust size as per your requirements
----
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: auth-banga-service-account
