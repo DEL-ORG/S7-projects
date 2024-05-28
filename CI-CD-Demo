@@ -1,0 +1,42 @@
+# This is a test 
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: custom-storage-class
+provisioner: kubernetes.io/no-provisioner
+volumeBindingMode: WaitForFirstConsumer
+allowVolumeExpansion: true
+parameters:
+  type: local
+  size: 5Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth-banga
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: auth-banga
+  template:
+    metadata:
+      labels:
+        app: auth-banga
+    spec:
+      containers:
+      - name: auth-banga
+        image: devopseasylearning/banga-auth:v0.0.1
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        env:
+        - name: DB_HOST
+          value: db
+        - name: DB_PASSWORD
+          value: my-secret-pw
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: auth-banga-storage-claim
+
