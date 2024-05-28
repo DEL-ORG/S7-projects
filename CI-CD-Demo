@@ -40,3 +40,20 @@ spec:
         persistentVolumeClaim:
           claimName: auth-banga-storage-claim
 
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: auth-banga-storage-claim
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: custom-storage-class  # Set the storage class here
+  resources:
+    requests:
+      storage: 1Gi  # Adjust size as per your requirements
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: auth-banga-service-account
