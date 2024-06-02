@@ -17,7 +17,7 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    sleep 5thyyujkhyjykljyjkyhjk
+                    sleep
                     '''
                 }
             }
